@@ -42,4 +42,5 @@ Write-Host "The following VNets do not have DDoS Enabled: " -ForegroundColor Red
 $vnet_attrs | Group-Object -Property DDoSEnabled | ? { $_.Name -eq 'False'} | ForEach-Object { $_.Group | Sort-Object -Property NumberOfIPs -Descending | Format-Table }
 
 #Write list to CSV of currently logged in users desktop. Replace your drive C:\ with the drive that contains your user information
-$vnet_attrs | Sort-Object -Property NumberOfIPs, DDoSEnabled -Descending | Export-Csv -Path c:\users\$env:USERNAME\desktop\AzureVnet_DDoSInformation.csv -NoTypeInformation 
+$vnet_attrs | Sort-Object -Property @{Expression = "DDoSEnabled"; Ascending = $True}, @{Expression="NumberOfIPs"; Descending = $True} | Export-Csv -Path c:\users\$env:USERNAME\desktop\AzureVnet_DDoSInformation.csv -NoTypeInformation 
+ 
