@@ -41,6 +41,9 @@ $vnet_attrs | Group-Object -Property DDoSEnabled | ? { $_.Name -eq 'True'} | For
 Write-Host "The following VNets do not have DDoS Enabled: " -ForegroundColor Red
 $vnet_attrs | Group-Object -Property DDoSEnabled | ? { $_.Name -eq 'False'} | ForEach-Object { $_.Group | Sort-Object -Property NumberOfIPs -Descending | Format-Table }
 
+Write-Host "Attempting to write CSV to " -NoNewline; Write-Host "c:\users\$env:USERNAME\desktop\AzureVnet_DDoSInformation.csv" -ForegroundColor Green[‎11/‎9/‎2018 11:36 AM]  
+before which line exactly? 
+ 
 #Write list to CSV of currently logged in users desktop. Replace your drive C:\ with the drive that contains your user information
 $vnet_attrs | Sort-Object -Property @{Expression = "DDoSEnabled"; Ascending = $True}, @{Expression="NumberOfIPs"; Descending = $True} | Export-Csv -Path c:\users\$env:USERNAME\desktop\AzureVnet_DDoSInformation.csv -NoTypeInformation 
  
